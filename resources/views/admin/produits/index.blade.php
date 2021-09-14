@@ -49,26 +49,39 @@
                                                      @endif
                                                  </td>
                                                  <td>
-                                                     <button class="btn btn-outline-primary" onclick="window.location=
+                                                     <button class="btn btn-outline-primary d-inline btn-sm" onclick="window.location=
                                          '{{ url('/admin/editProduit/' . $product->id) }}'">Modifier</button>
 
 
                                                      @if ($product->status)
-                                                         <button class="btn btn-outline-warning" onclick="window.location=
+                                                         <button class="btn btn-outline-secondary d-inline btn-sm" onclick="window.location=
                                          '{{ url('/admin/disableProduit/' . $product->id) }}'">Désactiver</button>
 
                                                      @else
-                                                         <button class="btn btn-outline-success" onclick="window.location=
+                                                         <button class="btn btn-outline-success d-inline btn-sm" onclick="window.location=
                                          '{{ url('/admin/enableProduit/' . $product->id) }}'">Activer</button>
 
                                                      @endif
 
-                                                     <button class="btn btn-outline-danger">
+                                                     {{-- <button class="btn btn-outline-danger">
                                                          <a class="text text-danger"
                                                              href="{{ url('/admin/deleteProduit/' . $product->id) }}"
                                                              id="delete">
                                                              Supprimer</a>
-                                                     </button>
+                                                     </button> --}}
+
+
+
+
+                                                     <form action="{{url('/admin/deleteProduit/' . $product->id)}}" method="POST" class="d-inline" 
+                                                        onsubmit="return confirm('Etes-vous sûr de vouloir supprimer le livre #{{ $product->product_name }} ?');">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
+                                                        <button type="submit" id="delete" class="btn btn-outline-danger btn-sm">
+                                                             Supprimer
+                                                        </button>
+                                                    </form>
+
                                                  </td>
                                              </tr>
                                              {{ Form::hidden('', $inc = $inc + 1) }}
